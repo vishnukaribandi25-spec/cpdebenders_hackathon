@@ -1,7 +1,100 @@
 {
   "schemaVersion": 2,
   "createdAt": "2026-11-21T06:53:54.690Z",
-  "updatedAt": "2026-11-21T06:53:54.690Z",
-  "phases": {},
-  "settings": {}
+  "updatedAt": "2026-11-21T08:43:32.583Z",
+  "phases": {
+    "architecture": {
+      "updatedAt": "2026-11-21T08:34:11.482Z",
+      "committed": false
+    },
+    "atlas": {
+      "updatedAt": "2026-11-21T08:34:15.839Z",
+      "committed": false
+    },
+    "brand": {
+      "updatedAt": "2026-11-21T08:34:15.902Z",
+      "committed": false
+    },
+    "apis": {
+      "updatedAt": "2026-11-21T08:34:16.061Z",
+      "committed": false
+    },
+    "persona": {
+      "updatedAt": "2026-11-21T08:34:16.105Z",
+      "committed": false
+    },
+    "schema": {
+      "updatedAt": "2026-11-21T08:34:16.226Z",
+      "committed": false
+    },
+    "ble": {
+      "updatedAt": "2026-11-21T08:34:19.253Z",
+      "committed": false
+    },
+    "stack": {
+      "updatedAt": "2026-11-21T08:34:25.261Z",
+      "committed": false
+    },
+    "prd": {
+      "updatedAt": "2026-11-21T08:43:32.583Z",
+      "committed": false
+    }
+  },
+  "settings": {},
+  "flow": {
+    "architecture": {
+      "hash": "b1c7c8c6574daa37",
+      "parts": {
+        "architecture": "39d9ee486a44c1eb"
+      },
+      "builtFrom": {}
+    },
+    "atlas": {
+      "hash": "40ef6ad1152af196",
+      "builtFrom": {
+        "ble": "47f7fc2aa32bf5a4"
+      }
+    },
+    "brand": {
+      "hash": "58bb47ddc21b60c1",
+      "builtFrom": {}
+    },
+    "apis": {
+      "hash": "fda17b42ea971d14",
+      "builtFrom": {}
+    },
+    "persona": {
+      "hash": "5e563b19d6fc0704",
+      "builtFrom": {}
+    },
+    "schema": {
+      "hash": "23cc3e3d39e25a14",
+      "builtFrom": {
+        "persona": "5e563b19d6fc0704",
+        "apis": "fda17b42ea971d14",
+        "ble": "47f7fc2aa32bf5a4"
+      }
+    },
+    "ble": {
+      "hash": "47f7fc2aa32bf5a4",
+      "builtFrom": {
+        "persona": "5e563b19d6fc0704",
+        "apis": "fda17b42ea971d14"
+      }
+    },
+    "stack": {
+      "hash": "82862b6c275e078f",
+      "parts": {
+        "databaseKind": "684a0cfa7ca53b79"
+      },
+      "builtFrom": {
+        "architecture": "296b96a1c1d7650d"
+      }
+    },
+    "prd": {
+      "hash": "9d848b0fb3d42d21",
+      "builtFrom": {}
+    }
+  },
+  "finalizedAt": "2026-11-21T08:42:02.534Z"
 }
