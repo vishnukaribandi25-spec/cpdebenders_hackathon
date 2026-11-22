@@ -1,10 +1,44 @@
+"use client";
+
 import Link from "next/link";
-import { upcomingAppointment } from "../../lib/mock-data";
+import type { CareAppointment } from "../../lib/appointment-types";
+import { nextUpcomingAppointment } from "../../lib/appointment-store";
+import {
+  careCircleMembers,
+  careRecipient,
+  upcomingAppointment,
+  type Appointment,
+  type Member,
+} from "../../lib/mock-data";
+import { useAppointments } from "../../lib/use-appointments";
 import Avatar from "./Avatar";
 import { IconArrowRight, IconCalendar, IconPin } from "./Icons";
 
+const UNASSIGNED: Member = { id: "", name: "Unassigned", initials: "?", tone: "slate", role: "" };
+
+/** Maps a stored appointment to the shape the card markup reads. */
+function toDisplayAppointment(item: CareAppointment): Appointment {
+  const when = new Date(item.startsAt);
+  const member = careCircleMembers.find((candidate) => candidate.id === item.handledById);
+  return {
+    title: item.title,
+    dayLabel: when.toLocaleDateString(undefined, { weekday: "short" }).toUpperCase(),
+    dayNumber: String(when.getDate()),
+    timeRange: `${when.toLocaleDateString(undefined, { weekday: "long" })}, ${when.toLocaleTimeString(undefined, {
+      hour: "numeric",
+      minute: "2-digit",
+    })}`,
+    location: item.location || "No location set",
+    handledBy: member ?? UNASSIGNED,
+    handledNote: member ? `${member.name} is taking ${careRecipient.name}` : "Not yet assigned",
+  };
+}
+
 export default function UpcomingAppointments() {
-  const appt = upcomingAppointment;
+  const { appointments } = useAppointments();
+  const next = nextUpcomingAppointment(appointments, new Date());
+  // Fall back to the static card when no real upcoming appointment exists.
+  const appt = next ? toDisplayAppointment(next) : upcomingAppointment;
   return (
     <section aria-labelledby="upcoming-title" className="rounded-2xl border border-[#E3E8E6] bg-white p-5 sm:p-6">
       <div className="flex items-center justify-between">

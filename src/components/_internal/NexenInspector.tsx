@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 // src/components/_internal/NexenInspector.tsx
 // Maintained by the CodeBenders IDE. Overwritten by the "Patch inspector"

@@ -13,7 +13,7 @@
 // Status values: 'pending' (default) | 'generating' | 'ready'. 'ready' fades the
 // skeleton out so the real page (if it has rendered behind us via Suspense) shows.
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
 interface Props {
 	variant?: 'loading' | 'coming-soon';
@@ -32,11 +32,16 @@ const surface = { background: '#ffffff', border: '1px solid #eceef1', borderRadi
 
 export function PageSkeleton({ variant = 'loading' }: Props) {
 	const [status, setStatus] = useState<Status>('pending');
-	const [route, setRoute] = useState<string>('');
+	// Read the route without a synchronous setState in an effect. The server snapshot
+	// is '' so SSR and the first client render match; the client value is used after hydration.
+	const route = useSyncExternalStore(
+		() => () => {},
+		() => window.location.pathname || '/',
+		() => '',
+	);
 
 	useEffect(() => {
 		if (typeof window === 'undefined') return;
-		setRoute(window.location.pathname || '/');
 		const onMsg = (ev: MessageEvent) => {
 			const data = ev.data as { type?: string; route?: string; status?: Status } | undefined;
 			if (!data || data.type !== 'nexen.page-status') return;

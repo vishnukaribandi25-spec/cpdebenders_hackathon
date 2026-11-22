@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { AppointmentsProvider } from "../../lib/use-appointments";
+import { CareCircleProvider } from "../../lib/use-care-circle";
 import { TasksProvider } from "../../lib/use-tasks";
 import Sidebar from "./Sidebar";
 import TopHeader from "./TopHeader";
@@ -26,14 +28,18 @@ export default function AppShell({ children, current }: { children: ReactNode; c
 
   return (
     <TasksProvider>
-      <div className="flex min-h-screen w-full flex-1 flex-col bg-[#F4F6F5] text-[#1F2A28]">
-        <Sidebar />
+      <AppointmentsProvider>
+        <CareCircleProvider>
+          <div className="flex min-h-screen w-full flex-1 flex-col bg-[#F4F6F5] text-[#1F2A28]">
+            <Sidebar />
 
-        <div className="flex flex-1 flex-col lg:pl-[232px]">
-          <TopHeader current={label} />
-          {children}
-        </div>
-      </div>
+            <div className="flex flex-1 flex-col lg:pl-[232px]">
+              <TopHeader current={label} />
+              {children}
+            </div>
+          </div>
+        </CareCircleProvider>
+      </AppointmentsProvider>
     </TasksProvider>
   );
 }
